@@ -1,0 +1,27 @@
+When biulding in Linux, the -l options should be placed after the source to properly link dependencies:
+
+gcc -Wall -o name name.c -lGL -lglut -lm 
+
+
+Rather than how it works now, we want weird-things*.c to create an array of vertices in memory and then feed it into OpenGL's vertice array handler.  In other words, pre-render a sequence and then loop it as a chunk of vertex arrays.
+
+It should be fast at that point, so we want to switch to a FPS system.  How it works:
+The main display loop checks the time.  Every 1/30th of a second, draw the new frame.
+
+
+typedef groove imagemap;
+
+groove *needle;
+double imagemap[640][480];  // actually a color bitmap.
+
+
+needle = malloc(sizeof(imagemap[640][480] * 30));    // 30 frames.. 300mb?
+
+// Generate the imagemap straight into needle space.
+// I wonder how long that will take?  Watch out!
+
+loop 30 * 640 * 480 times: 
+    glColor3f(*needle[x][y], *needle[x][x], *needle[y][y]);
+    needle = needle + sizeof(imagemap[640][480])
+}
+
